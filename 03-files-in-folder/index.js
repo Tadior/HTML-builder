@@ -18,15 +18,4 @@ async function info() {
       })
    }
 }
-info()
-
-//async function info() {
-//   const files = await readdir(path.resolve(__dirname, 'secret-folder'), {withFileTypes: true})
-//   const checked = [];
-//   console.log(files[0])
-//   stat(path.resolve(__dirname, 'secret-folder', 'style.css'), (err, stats) => {
-//      //console.log(stats.isDirectory());
-//      console.log(stats);
-//   });
-//}
-//info()
+info();
