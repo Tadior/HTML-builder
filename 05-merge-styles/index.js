@@ -1,0 +1,21 @@
+const path = require('path');
+const fs = require('fs');
+
+fs.readdir(path.join(__dirname, 'styles'),(error,files) => {
+   if (error) {
+      throw error
+   }
+   for (let file of files) {
+      if (path.extname(file) !== '.css') {
+         continue;
+      }
+      const readStream = fs.createReadStream(path.resolve(__dirname, 'styles', file));
+      readStream.on('data',(chunk) => {
+         fs.appendFile(path.join(__dirname, 'project-dist', 'bundle.css'), chunk, (error) => {
+            if (error) {
+               throw error;
+            }
+         });
+      })
+   }
+})
