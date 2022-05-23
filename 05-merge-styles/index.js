@@ -1,9 +1,26 @@
 const path = require('path');
 const fs = require('fs');
 
-fs.readdir(path.join(__dirname, 'styles'),(error,files) => {
+const checkDirectory = async ()=> {
+   return new Promise((resolve,reject) => {
+      fs.stat(path.join(__dirname, 'project-dist', 'bundle.css'),(error) => {
+         if (!error) {
+            fs.rm(path.join(__dirname, 'project-dist', 'bundle.css'),(error) => {
+               if (error) {
+                  return reject(error.message);
+               }
+               resolve()
+            });
+         } else {
+            resolve()
+         }
+      })
+   })
+}
+checkDirectory().then(() => {
+   fs.readdir(path.join(__dirname, 'styles'),(error,files) => {
    if (error) {
-      throw error
+      throw error;
    }
    for (let file of files) {
       if (path.extname(file) !== '.css') {
@@ -17,5 +34,6 @@ fs.readdir(path.join(__dirname, 'styles'),(error,files) => {
             }
          });
       })
-   }
+      }
+   })
 })

@@ -23,3 +23,7 @@ stdin.on('data', data => {
    stream.write(data);
 
 })
+process.on('SIGINT', () => {
+   stdout.write('Good bye');
+   process.exit();
+})
